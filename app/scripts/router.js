@@ -22,6 +22,8 @@ App.Router.map( function() {
     // The Login Page
     this.route( "login" );
 
+  this.route("users");
+  this.route("users");
     // The Main List of Mobile Applications and the main starting point.
     // This is a nested route since the header/footer will be similar.
     this.resource( "mobileApps", function() {
@@ -35,6 +37,7 @@ App.Router.map( function() {
             // The Route for creating a new Mobile Application Variant
             this.route( "add" );
         });
+
 
         // The Route for the variants detail, shows the list of instances
         this.resource( "variant", { path: "variant/:mobileApplication_id/:type/:mobileVariant_id" }, function() {});
@@ -103,6 +106,8 @@ App.VariantsRoute = Ember.Route.extend({
 
     }
 });
+
+
 
 /*
     Route for Application Variants Index Page
@@ -229,5 +234,33 @@ App.InstanceIndexRoute = Ember.Route.extend({
         return {  mobileVariantInstance_id: model.id, mobileVariant_id: model.variantID, mobileApplication_id:  this.modelFor( "instance" ).get( "pushApplicationID" ) ,type: model.get( "type" ) };
 
     }
+});
+
+
+/*
+ Route for the user management
+ */
+App.UsersRoute = Ember.Route.extend({
+  model: function() {
+
+    // Return All the Mobile Applications
+    return App.User.find();
+
+  },
+  setupController: function( controller, model ) {
+
+    //Load the current Model
+    controller.set( "model", model );
+
+  }
+});
+
+App.UsersAddRoute = Ember.Route.extend({
+  model: function() {
+
+    // Return All the Mobile Applications
+    return App.User.find();
+
+  }
 });
 

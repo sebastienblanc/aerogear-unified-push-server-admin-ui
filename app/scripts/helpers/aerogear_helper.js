@@ -34,5 +34,13 @@ App.AeroGear.pipelines = AeroGear.Pipeline([
             baseURL: "/ag-push/rest/",
             authenticator: App.AeroGear.authenticator
         }
+    } ,
+  {
+    name: "users",
+    settings: {
+      id: "userID",
+      baseURL: "/ag-push/rest/",
+      authenticator: App.AeroGear.authenticator
     }
+  }
 ]);

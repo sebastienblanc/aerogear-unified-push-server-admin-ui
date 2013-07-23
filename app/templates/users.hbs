@@ -1,0 +1,49 @@
+<!-- The Users List Partial-->
+<div>
+    <div>
+        <form id="user" {{action enroll on="submit" }}>
+      <fieldset>
+        <p>
+          <label>LoginName</label>
+          {{input type="text" valueBinding="loginName"}}
+        </p>
+        <p>
+          <label>Password</label>
+          {{input type="password" valueBinding="password"}}
+        </p>
+       <button class="primary">Enroll</button>
+      </fieldset>
+    </form>
+    </div>
+</div>
+
+<div id="user-table">
+    <table class="table table-zebra">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Login Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each}}
+                <tr>
+                    <td>
+                      <button class="primary" {{ action "remove" this}}>Remove</button>
+                    </td>
+                    <td>{{firstName}}</td>
+                    <td>{{lastName}}</td>
+                    <td>{{loginName}}</td>
+                    <td>{{email}}</td>
+                </tr>
+            {{else}}
+                <tr>
+                    <td colspan="5">Loadng...{{#if isLoaded}}Nothing Here{{/if}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
