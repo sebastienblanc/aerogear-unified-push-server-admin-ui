@@ -22,6 +22,9 @@ App.Router.map( function() {
     // The Login Page
     this.route( "login" );
 
+    // The Users Page
+    this.route("user");
+
     // The Main List of Mobile Applications and the main starting point.
     // This is a nested route since the header/footer will be similar.
     this.resource( "mobileApps", function() {
@@ -105,6 +108,14 @@ App.LoginRoute = App.Route.extend({
         return App.User.create();
     }
 });
+
+App.UserRoute = App.Route.extend({
+  model: function() {
+
+    return App.User.find();
+  }
+});
+
 
 /*
     Application Index Route
