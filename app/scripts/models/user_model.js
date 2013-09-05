@@ -37,7 +37,13 @@ App.User.reopenClass({
   find: function( userID ) {
     console.log( "in find");
     var user,
-        userPipe = App.AeroGear.pipelines.pipes.users,
+        userPipe = AeroGear.Pipeline({
+          name: "users",
+          settings: {
+            authenticator: App.AeroGear.authenticator,
+            baseURL: App.baseURL + "rest/"
+          }
+        }).pipes.users,
         model = this;
 
     if( userID ) {
@@ -53,6 +59,7 @@ App.User.reopenClass({
       id: userID
     })
         .then( function( response ) {
+          console.log(response);
           if( AeroGear.isArray( response ) ) {
             response.forEach( function( data ) {
               data.isLoaded = true;
