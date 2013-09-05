@@ -2,7 +2,13 @@ App.UserController = Ember.ArrayController.extend({
   remove: function( user ) {
     var things = user,
         that = this,
-        userPipe = App.AeroGear.pipelines.pipes.users;
+        userPipe =  AeroGear.Pipeline({
+          name: "users",
+          settings: {
+            authenticator: App.AeroGear.authenticator,
+            baseURL: App.baseURL + "rest/"
+          }
+        }).pipes.users;
 
     userPipe.remove( user.id, {
       success: function() {
@@ -35,9 +41,14 @@ App.UserController = Ember.ArrayController.extend({
     App.AeroGear.authenticator.enroll( JSON.stringify( { loginName: this.loginName, password: this.password } ), {
       contentType: "application/json",
       success: function() {
-        // Successful Login, now go to /mobileApps
-        that.set( "error", "" );
-        that.transitionToRoute( "users" );
+        Ember.run( this, function() {
+          $( "form" )[0].reset();
+          that.set( "error", "" );
+          var content = that.get( "model" ).get( "content" );
+          content.find();
+          that.transitionToRoute( "user" );
+        });
+
       },
       error: function( error ) {
         //TODO: Show errors on screen

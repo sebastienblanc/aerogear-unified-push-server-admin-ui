@@ -102,6 +102,7 @@ App.ApplicationRoute = Ember.Route.extend({
 /*
     Login Route
 */
+
 App.LoginRoute = App.Route.extend({
     model: function() {
 
@@ -109,12 +110,22 @@ App.LoginRoute = App.Route.extend({
     }
 });
 
-App.UserRoute = App.Route.extend({
+App.UserRoute = Ember.Route.extend({
   model: function() {
 
+    // Return All the Mobile Applications
     return App.User.find();
+
+  },
+  setupController: function( controller, model ) {
+
+    //Load the current Model
+    controller.set( "model", model );
+
   }
 });
+
+
 
 
 /*
