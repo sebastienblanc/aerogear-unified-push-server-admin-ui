@@ -40,13 +40,13 @@ App.UserController = Ember.ArrayController.extend({
     var that = this;
     App.AeroGear.authenticator.enroll( JSON.stringify( { loginName: this.loginName, password: this.password } ), {
       contentType: "application/json",
-      success: function() {
+      success: function(data) {
         Ember.run( this, function() {
           $( "form" )[0].reset();
           that.set( "error", "" );
-          var content = that.get( "model" ).get( "content" );
-          content.find();
-          that.transitionToRoute( "user" );
+          var content = that.get("model").get("content");
+          content.pushObject(data);
+          that.transitionToRoute( "user");
         });
 
       },
@@ -60,3 +60,4 @@ App.UserController = Ember.ArrayController.extend({
   }
 
 });
+
