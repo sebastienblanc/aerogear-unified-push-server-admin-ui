@@ -19,12 +19,15 @@
  */
 App.Router.map( function() {
 
-  // The Login Page
-  this.route( "login" );
+    // The Login Page
+    this.route( "login" );
 
-  // The Main List of Mobile Applications and the main starting point.
-  // This is a nested route since the header/footer will be similar.
-  this.resource( "mobileApps", function() {
+    // The Users Page
+    this.route("user");
+
+    // The Main List of Mobile Applications and the main starting point.
+    // This is a nested route since the header/footer will be similar.
+    this.resource( "mobileApps", function() {
 
     // The Route for editing a Mobile Application Name and Description
     this.route( "edit", { path: "edit/:mobileApplication_id" } );
@@ -97,6 +100,21 @@ App.LoginRoute = Ember.Route.extend({
   model: function() {
 
     return App.User.create();
+  }
+});
+
+App.UserRoute = Ember.Route.extend({
+
+  model: function() {
+    // Return All the Mobile Applications
+    return App.User.find();
+
+  },
+  setupController: function( controller, model ) {
+    //Load the current Model
+    controller.set( "model", App.User.find());
+
+
   }
 });
 
