@@ -1,4 +1,4 @@
-document.write('<div id="ember-testing-container"><div id="ember-testing"></div></div>');
+document.write( '<div id="ember-testing-container"><div id="ember-testing"></div></div>' );
 
 Ember.testing = true;
 
@@ -6,13 +6,15 @@ App.rootElement = '#ember-testing';
 App.setupForTesting();
 App.injectTestHelpers();
 
-function exists(selector) {
-    return !!find(selector).length;
+function exists( selector ) {
+    return !!find( selector ).length;
 }
 
-function missing(selector) {
+function missing( selector ) {
     var error = "element " + selector + " found (should be missing)";
-    throws(function() { find(selector); }, error);
+    throws( function () {
+        find( selector );
+    }, error );
 }
 
 var apps = [
@@ -80,65 +82,91 @@ var apps = [
     }
 ];
 
-$.mockjax({
-url: App.baseURL + "rest/auth/login",
+var users = [
+    {"id": "702beac3-1950-4eba-8b00-75207c9c6f10", "attributes": [], "enabled": true, "createdDate": 1378996266307, "expirationDate": null, "partition": {"id": "d0820a0f-8f43-481a-9ab8-88efd3d2150d", "attributes": [], "name": "default", "attributesMap": {}}, "loginName": "developer", "firstName": null, "lastName": null, "email": null, "attributesMap": {}},
+    {"id": "3d188cd2-cd95-4042-bd7f-41807e3cd687", "attributes": [], "enabled": true, "createdDate": 1378996266388, "expirationDate": null, "partition": {"id": "d0820a0f-8f43-481a-9ab8-88efd3d2150d", "attributes": [], "name": "default", "attributesMap": {}}, "loginName": "admin", "firstName": null, "lastName": null, "email": null, "attributesMap": {}}
+];
+
+
+$.mockjax( {
+    url: App.baseURL + "rest/auth/login",
     type: "POST",
     dataType: 'json',
-    response: function( arguments ) {
-        var password = JSON.parse(arguments.data).password;
+    response: function ( arguments ) {
+        var password = JSON.parse( arguments.data ).password;
 
-        if( password === "123" ) {
+        if ( password === "123" ) {
             this.status = 403;
-        } else if( password === "1234" ) {
+        } else if ( password === "1234" ) {
             this.status = 204;
         } else {
             this.status = 401;
         }
     }
-});
+} );
 
-$.mockjax({
+$.mockjax( {
     url: App.baseURL + "rest/auth/update",
     type: "PUT",
     status: 204,
     dataType: 'json'
-});
+} );
 
-$.mockjax({
+$.mockjax( {
     url: App.baseURL + "rest/applications",
     type: "GET",
     dataType: 'json',
-    response: function( arguments ) {
+    response: function ( arguments ) {
         this.responseText = apps;
     }
-});
+} );
 
-$.mockjax({
+$.mockjax( {
+    url: App.baseURL + "rest/users",
+    type: "GET",
+    dataType: 'json',
+    response: function ( arguments ) {
+        this.responseText = users;
+    }
+} );
+
+$.mockjax( {
+    url: App.baseURL + "rest/users",
+    type: "POST",
+    dataType: 'json',
+    response: function ( arguments ) {
+
+        users.push( users[0] );
+        this.responseText = apps;
+    }
+} );
+
+$.mockjax( {
     url: App.baseURL + "rest/applications/12345",
     type: "GET",
     dataType: 'json',
-    response: function( arguments ) {
+    response: function ( arguments ) {
         this.responseText = apps[ 0 ];
     }
-});
+} );
 
-$.mockjax({
+$.mockjax( {
     url: App.baseURL + "rest/applications",
     type: "POST",
     dataType: 'json',
-    response: function( arguments ) {
+    response: function ( arguments ) {
 
         apps.push( apps[0] );
         this.responseText = apps;
     }
-});
+} );
 
-$.mockjax({
+$.mockjax( {
     url: App.baseURL + "rest/applications/12345",
     type: "PUT",
     dataType: 'json',
-    response: function( arguments ) {
-        var data = JSON.parse(arguments.data),
+    response: function ( arguments ) {
+        var data = JSON.parse( arguments.data ),
             name = data.name,
             description = data.description;
 
@@ -147,7 +175,7 @@ $.mockjax({
 
         this.responseText = apps[ 0 ];
     }
-});
+} );
 
 $.mockjaxSettings.logging = false;
 $.mockjaxSettings.responseTime = 0;

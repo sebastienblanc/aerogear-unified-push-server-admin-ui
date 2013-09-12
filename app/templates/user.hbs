@@ -1,0 +1,52 @@
+<!-- The Users List Partial-->
+<!--Template to create/edit a push application-->
+<div>{{#linkTo "mobileApps"}}&larr; Back to Push Applications{{/linkTo}}</div>
+<div class="rcue-dialog">
+  <header>
+    <h1>
+       Add a user
+    </h1>
+  </header>
+  <div class="rcue-dialog-inner">
+     <form id="user" {{action enroll on="submit" }}>
+     <fieldset>
+       <p>
+         <label>Login Name</label>
+         {{input type="text" valueBinding="loginName" classNames="topcoat-text-input loginName"}}
+       </p>
+       <p>
+         <label>Password</label>
+        {{input type="password" valueBinding="password"classNames="topcoat-text-input password"}}
+       </p>
+        <input type="submit" class="topcoat-button" value="Enroll">
+     </fieldset>
+     </form>
+  </div>
+</div>
+
+<div id="user-table">
+    <table class="rcue-table"">
+        <thead>
+            <tr>
+              <th>Login Name</th>
+              <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each}}
+                <tr>
+                   <td>{{loginName}}</td>
+                   <td class="action">
+                     <a href="#" {{ action "remove" this}}>Remove</a>
+                   </td>
+                </tr>
+            {{else}}
+                <tr>
+                    <td colspan="2">Loading...{{#if isLoaded}}Nothing Here{{/if}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+

@@ -1,6 +1,7 @@
 <!-- The Main Admin UI Template-->
 <div class="content">
     <div class="right">
+        {{#linkTo "user"}}Users  {{/linkTo}} |
         <a href="#" {{ action logout this }} >Logout </a>
     </div>
     {{outlet}}

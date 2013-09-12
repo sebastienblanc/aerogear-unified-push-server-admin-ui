@@ -22,6 +22,9 @@ App.Router.map( function() {
     // The Login Page
     this.route( "login" );
 
+    // The Users Page
+    this.route("user");
+
     // The Main List of Mobile Applications and the main starting point.
     // This is a nested route since the header/footer will be similar.
     this.resource( "mobileApps", function() {
@@ -105,10 +108,23 @@ App.LoginRoute = Ember.Route.extend({
 */
 App.IndexRoute = App.Route.extend({
     redirect: function() {
-
         // Redirect to /mobileApps
         this.transitionTo( "mobileApps" );
 
+    }
+});
+
+/*
+    User Route
+ */
+App.UserRoute = Ember.Route.extend({
+    model: function() {
+        // Return All the Mobile Applications
+        return App.User.find();
+    },
+    setupController: function( controller ) {
+        //Load the current Model
+        controller.set( "model", App.User.find());
     }
 });
 
