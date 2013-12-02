@@ -24,14 +24,8 @@ module.exports = function (grunt) {
     // configurable paths
     var yeomanConfig = {
         app: 'app',
-        dist: 'dist',
-        home: '/home/sebastien/aerogear/aerogear-unified-push-server-admin-ui',
-        webapp: "/home/sebastien/aerogear/aerogear-unifiedpush-server/src/main/webapp",
-        jbossweb: "/home/sebastien/apps/jboss-as-7.1.1.Final/standalone/deployments/ag-push.war",
-        ups_repo:"/home/sebastien/aerogear/ui_update/aerogear-unifiedpush-server"
+        dist: 'dist'
     };
-
-    //grunt.task.run('initLocalConfig');
 
     grunt.initConfig({
         yeoman: yeomanConfig,
@@ -239,7 +233,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= yeoman.app %>',
-                    dest: '<%= yeoman.webapp %>',
+                    dest: '<%= local.webapp %>',
                     src: [ "**", "!**/*.txt" ]
                 }]
             },
@@ -247,15 +241,15 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= yeoman.app %>',
-                    dest: '<%= yeoman.jbossweb %>',
+                    dest: '<%= local.jbossweb %>',
                     src: [ "**", "!**/*.txt" ]
                 }]
             },
             server_dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%= release.home %>/dist',
-                    dest: '<%= release.ups_repo %>/src/main/webapp',
+                    cwd: '<%= local.home %>/dist',
+                    dest: '<%= local.ups_repo %>/src/main/webapp',
                     src: [ "**", "!**/*.txt" ]
                 }]
             }
@@ -333,9 +327,9 @@ module.exports = function (grunt) {
         shell: {
             branch: {
                 command: [
-                    'cd <%= yeoman.ups_repo %>',
+                    'cd <%= local.ups_repo %>',
                     'git checkout -b ui_update',
-                    'cp  <%= yeoman.home %>/dist <%= yeoman.ups_repo %>/src/main/webapp',
+                    'cp  <%= local.home %>/dist <%= local.ups_repo %>/src/main/webapp',
                     'git commit . -m "new Admin UI version"'
                 ].join('&&')
             }
