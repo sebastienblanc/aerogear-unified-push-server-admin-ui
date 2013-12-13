@@ -115,6 +115,7 @@ App.LoginController = Ember.ObjectController.extend({
                 contentType: "application/json",
                 success: function() {
                     that.set( "isLogged", false );
+                    that.get("controllers.application").toggleMenu();
                     that.transitionTo( "login" );
                 },
                 error: function() {

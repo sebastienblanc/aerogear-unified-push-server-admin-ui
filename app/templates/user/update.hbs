@@ -1,0 +1,28 @@
+<div class="content rcue-dialog">
+  <header>
+    <h1>
+      Confirm Registration
+    </h1>
+  </header>
+  <div class="rcue-dialog-inner">
+     <form id="update" class="confirm" {{action confirm controller target="controllers.userIndex" on="submit"}}>
+      <fieldset>
+       <p>
+          <label>Username</label>
+          {{ input type="text" valueBinding="loginName" placeholder="Username" classNames="topcoat-text-input loginName" classNameBindings="validationErrors.loginName:error"}}
+        </p>
+        <p>
+          <label>Password</label>
+          {{ input type="password" valueBinding="password" placeholder="New Password" classNames="topcoat-text-input password"
+          classNameBindings="validationErrors.password:error"}}
+        </p>
+        <p>
+          <label>Confirm Password</label>
+          {{ input type="password" valueBinding="confirmPassword" placeholder="Confirm Password" classNames="topcoat-text-input confirmPassword"
+          classNameBindings="validationErrors.confirmPassword:error"}}
+        </p>
+        <input type="submit" class="topcoat-button" value="Confirm">
+      </fieldset>
+    </form>
+  </div>
+</div>

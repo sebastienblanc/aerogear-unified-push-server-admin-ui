@@ -1,11 +1,24 @@
+<div {{bind-attr class="isMenuExpanded:arrow_box:hidden"}} >
+<div class="topcoat-list__container">
+               <ul class="topcoat-list list">
+                        <li class="topcoat-list__item">
+                            <a href="#" {{ action logout target="controllers.login" }} >Log out</a>
+                        </li>
+                        <li class="topcoat-list__item">
+                            {{#linkTo "user"}}Manage Users{{/linkTo}}
+                        </li>
+                </ul>
+</div>
+</div>
 <!--The Application Template-->
 <div class="topcoat-navigation-bar top-header">
     <div class="topcoat-navigation-bar__item left half">
         <h1 class="topcoat-navigation-bar__title"><strong>AeroGear</strong> UnifiedPush Server (0.10.0-SNAPSHOT)</h1>
     </div>
      <div class="topcoat-navigation-bar__item right half">
-         <span {{bind-attr class="controllers.login.isLogged::hidden"}}><a href="#" {{ action logout target="controllers.login" }} >Log out</a></span>
-     </div>
-</div>
+        <span {{bind-attr class="controllers.login.isLogged:user-options:hidden"}}><a {{action toggleMenu}}><span class="topcoat-icon topcoat-icon--menu-stack"></span></a></span>
+      </div>
+ </div>
+
 {{outlet error}}
 {{outlet}}

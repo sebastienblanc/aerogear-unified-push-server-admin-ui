@@ -14,5 +14,14 @@
 
 App.ApplicationController = Ember.Controller.extend({
     isProcessing: false,
-    needs: "login"
+    needs: "login",
+    isMenuExpanded: false,
+    toggleMenu: function() {
+        if(this.isMenuExpanded){
+            this.set('isMenuExpanded', false);
+        }
+        else {
+            this.set('isMenuExpanded', true);
+        }
+    }
 });

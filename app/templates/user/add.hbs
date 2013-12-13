@@ -1,0 +1,25 @@
+<aside  {{bind-attr class="controllers.userIndex.showLink:registration-overlay controllers.userIndex.showLink:topcoat-overlay:hidden"}}>
+        <h1>Registration Link </h1>
+        <p>{{controllers.userIndex.model.newUser.registrationLink}}</p>
+        <div class="topcoat-overlay-buttons">
+            <button role="button" class="topcoat-button--cta" {{action toggleLinkOverlay controller target="controllers.userIndex"}}>Ok</button>
+        </div>
+</aside>
+<div class="rcue-dialog">
+  <header>
+    <h1>
+       Add a user
+    </h1>
+  </header>
+  <div class="rcue-dialog-inner">
+     <form id="user" {{action enroll controller target="controllers.userIndex" on="submit" }}>
+     <fieldset>
+       <p>
+         <label>Login Name</label>
+         {{input type="text" valueBinding="loginName" classNames="topcoat-text-inputs"}}
+       </p>
+        <input type="submit" class="topcoat-button" value="Enroll">
+     </fieldset>
+     </form>
+  </div>
+</div>

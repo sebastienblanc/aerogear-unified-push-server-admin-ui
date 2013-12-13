@@ -21,13 +21,37 @@ App.Route = Ember.Route.extend({
             loginController = this.controllerFor( "login" );
 
         loginController.set( "isLogged", true );
-        return App.AeroGear.pipelines.pipes.ping.read().then( null, function() {
-            Ember.run( function() {
-                loginController.set( "isLogged", false );
-                loginController.set( "previousTransition", transition );
-                that.transitionTo( "login" );
+
+        //Props to lholmquist
+        var parseQueryString = function( locationString ) {
+            //taken from https://developers.google.com/accounts/docs/OAuth2Login
+            // First, parse the query string
+            var params = {},
+                queryString = locationString.substr( locationString.indexOf( "?" ) + 1 ),
+                regex = /([^&=]+)=([^&]*)/g,
+                m;
+            while ( ( m = regex.exec(queryString) ) ) {
+                params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+            }
+            return params;
+        };
+
+        var token = parseQueryString( window.location.search ).id;
+
+        if(token && transition.targetName !== "mobileApps.index") {
+            that.controllerFor("userUpdate" ).set("model",App.User.create());
+            that.transitionTo( "user.update" );
+        }
+        else {
+            return App.AeroGear.pipelines.pipes.ping.read().then( null, function() {
+                Ember.run( function() {
+                    loginController.set( "isLogged", false );
+                    loginController.set( "previousTransition", transition );
+                    that.transitionTo( "login" );
+                });
             });
-        });
+        }
+
     },
     activate: function(){
         this.controllerFor( "application" ).set("isProcessing",false);

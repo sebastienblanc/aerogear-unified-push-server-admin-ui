@@ -22,6 +22,13 @@ App.Router.map( function() {
     // The Login Page
     this.route( "login" );
 
+    // The User Management page
+    this.resource("user", function() {
+        this.route( "add", { path: "add"} );
+        this.route( "edit", { path: "edit" } );
+        this.route( "update", { path: "update" } );
+    });
+
     // The Main List of Mobile Applications and the main starting point.
     // This is a nested route since the header/footer will be similar.
     this.resource( "mobileApps", function() {
@@ -91,6 +98,50 @@ App.LoginRoute = Ember.Route.extend({
     }
 });
 
+
+/*
+ User Route
+ */
+App.UserIndexRoute = Ember.Route.extend({
+    model: function() {
+        // Return All the users
+        return App.User.find();
+    },
+    setupController: function( controller ) {
+        //Load the current Model
+        controller.set( "model", App.User.find());
+        controller.get("controllers.application").toggleMenu();
+    }
+});
+
+App.UserAddRoute = Ember.Route.extend({
+    model: function() {
+        //don't like the formatting here
+        return App.User.create();
+    },
+    serialize: function( model ) {
+
+        // Make our non uniform id's what ember expects
+        return model;
+
+    }
+});
+
+App.UserEditRoute = Ember.Route.extend({
+
+});
+
+App.userUpdateRoute = Ember.Route.extend({
+    model: function() {
+         //don't like the formatting here
+        return App.User.create();
+    },
+    setupController: function(controller,model) {
+        controller.set('model',model);
+    }
+});
+
+
 /*
     Application Index Route
 */
@@ -102,6 +153,7 @@ App.IndexRoute = App.Route.extend({
 
     }
 });
+
 
 /*
     Mobile Applications Index Route
