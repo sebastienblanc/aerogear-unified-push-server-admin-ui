@@ -1,6 +1,6 @@
 App.UserIndexController = Ember.ArrayController.extend( {
     showLink: false,
-    needs: "application",
+    needs: ["application","login","userIndex"],
     actions: {
         toggleLinkOverlay: function() {
             if ( this.get( "showLink" ) ) {
@@ -48,9 +48,10 @@ App.UserIndexController = Ember.ArrayController.extend( {
         },
 
         enroll: function ( controller ) {
-            var that = this;
+            var that = this,
+                role = $( "input[name=role]:checked" ).val();
 
-            App.AeroGear.authenticator.enroll( JSON.stringify( { loginName: controller.get("loginName")} ), {
+            App.AeroGear.authenticator.enroll( JSON.stringify( { loginName: controller.get("loginName"), role: role} ), {
                 contentType: "application/json",
                 success: function ( data ) {
                     Ember.run( this, function () {
@@ -58,7 +59,7 @@ App.UserIndexController = Ember.ArrayController.extend( {
                         that.set( "error", "" );
                         var content = that.get( "model" ).get( "content" );
                         content.pushObject( data );
-                        that.get( "model" ).set("newUser",data);
+                        that.get( "model" ).set("unregisteredUser",data);
 
                         //that.transitionToRoute( "user" );
                     } );
@@ -71,6 +72,37 @@ App.UserIndexController = Ember.ArrayController.extend( {
                 }
             } );
             this.send("toggleLinkOverlay");
+        },
+        reset: function ( user ) {
+            var that = this,
+            resetPipe = AeroGear.Pipeline( {
+                name: "initreset",
+                settings: {
+                    endpoint: "rest/initreset"
+                }
+            } ).pipes.reset;
+
+            resetPipe.save( user, {
+                success: function (data) {
+                    var content = that.get( "model" ).get( "content" );
+                    content.pushObject( data );
+                    that.get( "model" ).set("unregisteredUser",data);
+
+                },
+                error: function ( error ) {
+                    console.log( "error with resetting user", error );
+                    switch ( error.status ) {
+                    case 401:
+                        App.Router.router.transitionToRoute( "login" );
+                        break;
+                    default:
+                        //that.transitionToRoute( "login" );
+                        //result.setProperties( { isLoaded: true, error: error } );
+                        break;
+                    }
+                }
+            } );
+            that.send("toggleLinkOverlay");
         },
         confirm: function ( controller ) {
             var that = this;

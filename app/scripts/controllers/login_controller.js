@@ -17,6 +17,7 @@ App.LoginController = Ember.ObjectController.extend({
     loginIn: true,
     relog: false,
     isLogged: false,
+    isAdmin: false,
     previousTransition: null,
     actions: {
         login: function() {
@@ -38,9 +39,16 @@ App.LoginController = Ember.ObjectController.extend({
                 //Use AeroGear Authenticator to login
                 App.AeroGear.authenticator.login( JSON.stringify( { loginName: this.get( "loginName" ), password: this.get( "password" ) } ), {
                     contentType: "application/json",
-                    success: function() {
+                    success: function(data) {
                         // Successful Login, now go to /mobileApps
                         Ember.run( this, function() {
+                            if(data.role==="admin"){
+                                that.set("isAdmin", true);
+                            }
+                            else {
+                                that.set("isAdmin", false);
+                            }
+                            that.set("model",data);
                             that.set( "relog", false );
                             that.set( "isLogged", true);
                             if( previousTransition ) {

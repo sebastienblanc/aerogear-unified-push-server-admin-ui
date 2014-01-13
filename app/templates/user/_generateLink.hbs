@@ -1,0 +1,7 @@
+<aside  {{bind-attr class="controllers.userIndex.showLink:registration-overlay controllers.userIndex.showLink:topcoat-overlay:hidden"}}>
+        <h1>Registration Link </h1>
+        <p>{{controllers.userIndex.model.unregisteredUser.registrationLink}}</p>
+        <div class="topcoat-overlay-buttons">
+            <button role="button" class="topcoat-button--cta" {{action toggleLinkOverlay controller target="controllers.userIndex"}}>Ok</button>
+        </div>
+</aside>

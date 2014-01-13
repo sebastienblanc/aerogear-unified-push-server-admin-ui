@@ -1,26 +1,42 @@
-<!-- The Users List Partial-->
-<!--Template to create/edit a push application-->
+{{ partial "user/_generateLink" }}
 <div>{{#linkTo "mobileApps"}}&larr; Back to Push Applications{{/linkTo}}</div>
 
 <div id="user-table">
     <table class="rcue-table"">
         <thead>
             <tr>
-              <th colspan="2">
+              <th colspan="5">
               {{#linkTo "user.add"}}<div class="table-create-btn topcoat-button">Create...</div>{{/linkTo}}
               </th>
             </tr>
             <tr>
               <th>Login Name</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>#</th>
               <th>#</th>
             </tr>
         </thead>
         <tbody>
             {{#each}}
                 <tr>
-                   <td>{{loginName}}</td>
+                   <td>
+                     {{loginName}}
+                   </td>
+                   <td>
+                     {{role}}
+                   </td>
+                   <td>
+                   {{#if enabled}}
+                   Active
+                   {{else}}
+                   Pending
+                   {{/if}}
                    <td class="action">
-                     <a href="#" {{ action "remove" this}}>Remove</a>
+                     <a href="#" {{ action "remove" this}} {{bind-attr class="loggedIn:hidden"}} >Remove</a>
+                   </td>
+                   <td class="action">
+                     <a href="#" {{ action "reset" this}} >Reset</a>
                    </td>
                 </tr>
             {{else}}

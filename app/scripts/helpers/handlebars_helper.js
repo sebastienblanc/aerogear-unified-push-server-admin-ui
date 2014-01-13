@@ -27,3 +27,4 @@ Ember.Handlebars.helper('headInstallationTitle', function(deviceToken) {
     Ember.$('head').find('title').text("Device " + deviceToken + static_title);
 }, 'title');
 
+

@@ -1,10 +1,4 @@
-<aside  {{bind-attr class="controllers.userIndex.showLink:registration-overlay controllers.userIndex.showLink:topcoat-overlay:hidden"}}>
-        <h1>Registration Link </h1>
-        <p>{{controllers.userIndex.model.newUser.registrationLink}}</p>
-        <div class="topcoat-overlay-buttons">
-            <button role="button" class="topcoat-button--cta" {{action toggleLinkOverlay controller target="controllers.userIndex"}}>Ok</button>
-        </div>
-</aside>
+{{ partial "user/_generateLink" }}
 <div class="rcue-dialog">
   <header>
     <h1>
@@ -17,6 +11,20 @@
        <p>
          <label>Login Name</label>
          {{input type="text" valueBinding="loginName" classNames="topcoat-text-inputs"}}
+       </p>
+       <p>
+        <label>Role</label>
+        <br>
+        <label>
+        {{view Ember.RadioButton name="role" value="developer"}}
+        Developer
+        </label>
+        <br>
+        <label>
+        {{view Ember.RadioButton name="role" value="admin"}}
+        Administrator
+        </label>
+
        </p>
         <input type="submit" class="topcoat-button" value="Enroll">
      </fieldset>
