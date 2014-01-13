@@ -21,6 +21,7 @@
         "$": true,
         "Ember": true,
         "App": true,
-        "DS": true
+        "DS": true,
+        "self":true
     }
 }
