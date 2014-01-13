@@ -105,7 +105,8 @@ App.UserIndexController = Ember.ArrayController.extend( {
             that.send("toggleLinkOverlay");
         },
         confirm: function ( controller ) {
-            var that = this;
+            var that = this,
+                user = controller.get( "model" );
             //Props to lholmquist
             var parseQueryString = function( locationString ) {
                 //taken from https://developers.google.com/accounts/docs/OAuth2Login
@@ -122,7 +123,10 @@ App.UserIndexController = Ember.ArrayController.extend( {
 
             var token = parseQueryString( window.location.search ).id;
 
-            if(token) {
+            user.validateProperty( "password" );
+            user.validateProperty( "confirmPassword" );
+
+            if(token && user.get( "isValid" )) {
 
                 var updatePipeline = AeroGear.Pipeline([
                     {
@@ -141,12 +145,12 @@ App.UserIndexController = Ember.ArrayController.extend( {
                     {
                         success: function() {
                             Ember.run( this, function() {
-                                that.transitionToRoute( "mobileApps" );
+                                self.location =  "index.html";
                             });
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            console.log( "Oh noes! " + textStatus );
-                            console.log( "\n" + errorThrown );
+                            console.log( textStatus );
+                            console.log( errorThrown );
                         }
                     });
 
