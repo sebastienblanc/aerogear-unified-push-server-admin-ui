@@ -43,18 +43,36 @@ App.Route = Ember.Route.extend({
             that.transitionTo( "user.update" );
         }
         else {
-            return App.AeroGear.pipelines.pipes.ping.read().then( null, function() {
-                Ember.run( function() {
-                    loginController.set( "isLogged", false );
-                    loginController.set( "previousTransition", transition );
-                    that.transitionTo( "login" );
+            return App.AeroGear.pipelines.pipes.ping.read().then(
+                function(data){
+                    loginController.set( "isLogged", true );
+                    if(data.role==="admin"){
+                        loginController.set("isAdmin", true);
+                    }
+                    else {
+                        loginController.set("isAdmin", false);
+                    }
+                    if(data.role==="viewer"){
+                        loginController.set("isViewer", true);
+                    }
+                    else {
+                        loginController.set("isViewer", false);
+                    }
+                    loginController.set("model",data);
+                },
+                function() {
+                    Ember.run( function() {
+                        loginController.set( "isLogged", false );
+                        loginController.set( "previousTransition", transition );
+                        that.transitionTo( "login" );
+                    });
                 });
-            });
         }
 
     },
     activate: function(){
         this.controllerFor( "application" ).set("isProcessing",false);
         this.send( "clearErrors" );
+        this.controllerFor("application" ).toggleMenu();
     }
 });
