@@ -480,6 +480,10 @@ input[type="password"].error {
     margin-right:73px;
 }
 
+table.user-table tbody tr td{
+    font-size: 1em;
+}
+
 .arrow_box {
     position: absolute;
     width: 150px;
