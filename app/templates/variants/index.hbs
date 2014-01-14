@@ -24,7 +24,7 @@
         </span>
         <div>
             Application ID:   {{input type="text" disabled="true" class="rcue-code" valueBinding="pushApplicationID"}}<br>
-            Master Secret:    {{input type="text" class="rcue-code" valueBinding="masterSecret" disabled="true"}}  <a href="#" {{ action "toggleResetOverlay" this}}>Renew...</a>
+            Master Secret:    {{input type="text" class="rcue-code" valueBinding="masterSecret" disabled="true"}} {{#unless controllers.login.isViewer }} <a href="#" {{ action "toggleResetOverlay" this}}>Renew...</a> {{/unless}}
         </div>
 </section>
 

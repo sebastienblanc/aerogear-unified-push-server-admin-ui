@@ -18,7 +18,7 @@
                 <td>{{ deviceType }}</td>
                 <td>{{ operatingSystem }}</td>
                 <td>{{ status }}</td>
-                <td class="action"><a href="#" value="toggle" {{action toggleStatus this}}>Toggle</button></td>
+                <td class="action">{{#unless controllers.login.isViewer }}<a href="#" value="toggle" {{action toggleStatus this}}>Toggle</a>{{/unless}}</td>
             </tr>
         </tbody>
     </table>

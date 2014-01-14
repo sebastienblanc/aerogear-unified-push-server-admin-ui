@@ -107,7 +107,7 @@ module('App.MobileAppsEditController - Create New', {
                 "name": "Cool App 2",
                 "description": "A Cool App for testing",
                 "pushApplicationID": "12345",
-                "masterSecret": "3ababa8f-cc35-455b-8fc1-311ffe206538",
+                "masterSecret": "3ababa8f-cc35-455b-8fc1-311ffe206538"
             }
         ];
 

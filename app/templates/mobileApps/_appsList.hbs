@@ -1,11 +1,12 @@
 <!-- The Mobile Applications List Partial-->
 {{headAppsTitle totalApps  }}
 <strong>Applications </strong>({{ totalApps }})
+
     <table class="rcue-table">
         <thead>
             <tr>
                 <th colspan="5">
-                    {{#linkTo "mobileApps.edit"}}<div class="table-create-btn topcoat-button">Create...</div>{{/linkTo}}
+                {{#unless controllers.login.isViewer }}{{#linkTo "mobileApps.edit"}}<div class="table-create-btn topcoat-button">Create...</div>{{/linkTo}}{{/unless}}
                 </th>
             </tr>
             <tr>
@@ -16,17 +17,22 @@
             </tr>
         </thead>
         <tbody>
-            {{#each controller}}
+             {{#each app in controller}}
                 <tr>
-                    <td>{{#linkTo "variants" this}}{{ name }}{{/linkTo}}</td>
-                    <td><span>{{ description }}<span></td>
-                    <td class="rcue-table-number">{{ totalVariants }}</td>
+                    <td>{{#linkTo "variants" app}}{{ app.name }}{{/linkTo}}</td>
+                    <td><span>{{ app.description }}<span></td>
+                    <td class="rcue-table-number">{{ app.totalVariants }}</td>
+                   {{#if  ../controllers.login.isViewer }}
+                     <td class="action"></td>
+                     <td class="action"></td>
+                   {{else}}
                     <td class="action">
-                        {{#linkTo "mobileApps.edit" this}}Rename...{{/linkTo}}
+                        {{#linkTo "mobileApps.edit" app}} Rename...{{/linkTo}}
                     </td>
                     <td class="action">
-                        <a href="#" {{ action "remove" this}}>Remove...</a>
+                        <a href="#" {{ action "remove" app}}>Remove...</a>
                     </td>
+                    {{/if}}
                 </tr>
             {{else}}
                 <tr>

@@ -13,7 +13,7 @@
 */
 
 App.MobileAppsIndexController = Ember.ArrayController.extend({
-    needs: "application",
+    needs: ["application", "login"],
     sortProperties: [ "pushApplicationID" ],
     sortAscending: true,
     applicationPipe: App.AeroGear.pipelines.pipes.applications,

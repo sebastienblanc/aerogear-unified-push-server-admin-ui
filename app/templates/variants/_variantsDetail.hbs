@@ -4,7 +4,7 @@
         <thead>
             <tr>
                 <th colspan="7">
-                    {{#linkTo "variants.add" this}}<div class="table-create-btn topcoat-button">Add...</div>{{/linkTo}}
+                   {{#unless controllers.login.isViewer }}{{#linkTo "variants.add" this}}<div class="table-create-btn topcoat-button">Add...</div>{{/linkTo}}{{/unless}}
                 </th>
             </tr>
             <tr>
@@ -17,19 +17,24 @@
             </tr>
         </thead>
         <tbody>
-            {{#each variantList }}
+            {{#each variant in variantList }}
                 <tr>
-                    <td>{{#linkTo "variant" this}}{{name}}{{/linkTo}}</td>
-                    <td>{{ googleProjectNumber }}</td>
-                    <td>{{ description }}</td>
-                    <td>{{ typeFormatted }}</td>
+                    <td>{{#linkTo "variant" variant}}{{variant.name}}{{/linkTo}}</td>
+                    <td>{{ variant.googleProjectNumber }}</td>
+                    <td>{{ variant.description }}</td>
+                    <td>{{ variant.typeFormatted }}</td>
                     <td class="rcue-table-number">{{ totalInstances }}</td>
+                    {{#if  ../controllers.login.isViewer }}
+                    <td></td>
+                    <td></td>
+                    {{else}}
                     <td class="action">
-                        {{#linkTo "variants.edit" this}}Rename...{{/linkTo}}
+                        {{#linkTo "variants.edit" variant}}Rename...{{/linkTo}}
                     </td>
                     <td class="action">
-                        <a href="#" {{ action "remove" this}}>Remove...</a>
+                        <a href="#" {{ action "remove" variant}}>Remove...</a>
                     </td>
+                    {{/if}}
                 </tr>
             {{else}}
                 <tr>

@@ -13,6 +13,7 @@
 */
 
 App.InstanceIndexController = Ember.ObjectController.extend({
+    needs: "login",
     actions: {
         toggleStatus: function( model ) {
         //TODO: persist to the server

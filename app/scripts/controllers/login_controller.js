@@ -18,6 +18,7 @@ App.LoginController = Ember.ObjectController.extend({
     relog: false,
     isLogged: false,
     isAdmin: false,
+    isViewer: false,
     previousTransition: null,
     actions: {
         login: function() {
@@ -47,6 +48,12 @@ App.LoginController = Ember.ObjectController.extend({
                             }
                             else {
                                 that.set("isAdmin", false);
+                            }
+                            if(data.role==="viewer"){
+                                that.set("isViewer", true);
+                            }
+                            else {
+                                that.set("isViewer", false);
                             }
                             that.set("model",data);
                             that.set( "relog", false );

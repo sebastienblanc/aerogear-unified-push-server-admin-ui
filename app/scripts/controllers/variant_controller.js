@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 App.VariantIndexController = Ember.ObjectController.extend({
-    needs: "application",
+    needs: ["application","login"],
     showReset: false,
     actions: {
         toggleResetOverlay: function(){
