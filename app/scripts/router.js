@@ -110,7 +110,6 @@ App.UserIndexRoute = Ember.Route.extend({
     setupController: function( controller ) {
         //Load the current Model
         controller.set( "model", App.User.find());
-        controller.get("controllers.application").toggleMenu();
     }
 });
 

@@ -73,6 +73,6 @@ App.Route = Ember.Route.extend({
     activate: function(){
         this.controllerFor( "application" ).set("isProcessing",false);
         this.send( "clearErrors" );
-        this.controllerFor("application" ).toggleMenu();
+        this.controllerFor("application" ).set("isMenuExpanded",false);
     }
 });
