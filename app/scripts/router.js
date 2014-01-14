@@ -110,6 +110,7 @@ App.UserIndexRoute = Ember.Route.extend({
     setupController: function( controller ) {
         //Load the current Model
         controller.set( "model", App.User.find());
+
     }
 });
 
@@ -118,10 +119,10 @@ App.UserAddRoute = Ember.Route.extend({
         //don't like the formatting here
         return App.User.create();
     },
-    serialize: function( model ) {
+    setupController: function( controller ) {
 
         // Make our non uniform id's what ember expects
-        return model;
+        controller.set("model",App.User.create());
 
     }
 });

@@ -11,7 +11,7 @@
      <fieldset>
        <p>
          <label>Login Name</label>
-         {{input type="text" valueBinding="loginName" classNames="topcoat-text-inputs"}}
+         {{input type="text" valueBinding="loginName" classNames="topcoat-text-inputs" classNameBindings="validationErrors.loginName:error" }}
        </p>
        <p>
         <label>Role</label>

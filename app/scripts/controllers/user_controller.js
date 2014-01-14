@@ -5,6 +5,8 @@ App.UserIndexController = Ember.ArrayController.extend( {
         toggleLinkOverlay: function() {
             if ( this.get( "showLink" ) ) {
                 this.set( "showLink", false );
+                this.transitionToRoute( "user" );
+                this.send( "clearErrors" );
             }
             else {
                 this.set( "showLink", true );
@@ -49,29 +51,37 @@ App.UserIndexController = Ember.ArrayController.extend( {
 
         enroll: function ( controller ) {
             var that = this,
-                role = $( "input[name=role]:checked" ).val();
+                role = $( "input[name=role]:checked" ).val(),
+                user = controller.get( "model" );
 
-            App.AeroGear.authenticator.enroll( JSON.stringify( { loginName: controller.get("loginName"), role: role} ), {
-                contentType: "application/json",
-                success: function ( data ) {
-                    Ember.run( this, function () {
-                        $( "form" )[0].reset();
-                        that.set( "error", "" );
-                        var content = that.get( "model" ).get( "content" );
-                        content.pushObject( data );
-                        that.get( "model" ).set("unregisteredUser",data);
+            user.validateProperty( "loginName" );
 
-                        //that.transitionToRoute( "user" );
-                    } );
 
-                },
-                error: function ( error ) {
-                    //TODO: Show errors on screen
-                    console.log( "Error enrolling in", error );
-                    that.set( "error", "enrolling Error" );
-                }
-            } );
-            this.send("toggleLinkOverlay");
+            if( !user.get( "isValid" ) ) {
+                this.send( "error", this.get('controllers.login' ), user.get( "validationErrors.allMessages" ) );
+            } else {
+                App.AeroGear.authenticator.enroll( JSON.stringify( { loginName: controller.get( "loginName" ), role: role} ), {
+                    contentType: "application/json",
+                    success: function ( data ) {
+                        Ember.run( this, function () {
+                            $( "form" )[0].reset();
+                            that.set( "error", "" );
+                            var content = that.get( "model" ).get( "content" );
+                            content.pushObject( data );
+                            that.get( "model" ).set( "unregisteredUser", data );
+
+                            //that.transitionToRoute( "user" );
+                        } );
+
+                    },
+                    error: function ( error ) {
+                        //TODO: Show errors on screen
+                        console.log( "Error enrolling in", error );
+                        that.set( "error", "enrolling Error" );
+                    }
+                } );
+                this.send( "toggleLinkOverlay" );
+            }
         },
         reset: function ( user ) {
             var that = this,
