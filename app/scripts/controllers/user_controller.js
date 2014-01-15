@@ -90,7 +90,7 @@ App.UserIndexController = Ember.ArrayController.extend( {
                 settings: {
                     endpoint: "rest/initreset"
                 }
-            } ).pipes.reset;
+            } ).pipes.initreset;
 
             resetPipe.save( user, {
                 success: function (data) {
