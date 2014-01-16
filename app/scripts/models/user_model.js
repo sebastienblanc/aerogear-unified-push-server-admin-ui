@@ -17,6 +17,9 @@
 */
 
 App.User = Ember.Object.extend( Ember.Validations, {
+    loginNameChange: function() {
+        App.__container__.lookup("controller:application" ).send("clearErrors");
+    }.observes('loginName'),
     validations: {
         loginName: {
             presence: true
