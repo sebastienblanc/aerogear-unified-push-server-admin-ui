@@ -481,8 +481,13 @@ input[type="password"].error {
 }
 
 table.user-table tbody tr td{
-    font-size: 1em;
+    font-size: 1.3em;
 }
+
+table.user-table thead tr th{
+    font-size: 1.3em;
+}
+
 
 .arrow_box {
     position: absolute;
