@@ -18,7 +18,7 @@
         <h1 class="topcoat-navigation-bar__title"><strong>AeroGear</strong> UnifiedPush Server (0.10.0-SNAPSHOT)</h1>
     </div>
      <div class="topcoat-navigation-bar__item right half">
-        <span class="topcoat-navigation-bar__title">{{controllers.login.loginName}}</span>
+        <span {{bind-attr class="controllers.login.isLogged:topcoat-navigation-bar__title:hidden"}} >{{controllers.login.loginName}}</span>
         <span {{bind-attr class="controllers.login.isLogged:user-options:hidden"}}><a {{action toggleMenu}}><span class="topcoat-icon topcoat-icon--menu-stack"></span></a></span>
       </div>
  </div>

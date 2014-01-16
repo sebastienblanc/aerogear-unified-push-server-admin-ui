@@ -10,3 +10,9 @@ $(document).keydown(function kk(e){
         konami_index = 0;
     }
 });
+$(document).click(function (e){
+    var controller = App.__container__.lookup("controller:application");
+    if( e.target.className !== "topcoat-icon topcoat-icon--menu-stack" && controller.get("isMenuExpanded") === true){
+        controller.set("isMenuExpanded",false);
+    }
+});
