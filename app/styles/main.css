@@ -170,6 +170,10 @@ table {
   position: fixed;
   width: 100%;
   margin-top: -3.2%;
+  background-image: url('../img/drawing.png');
+  background-repeat: no-repeat;
+  background-size: 200px 30px;
+  background-position-x: 10px;
 }
 
 .topcoat-navigation-bar__title {
